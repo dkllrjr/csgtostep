@@ -27,5 +27,6 @@ docker push dkllrjr/csgtostep:latest-amd64
 # Docker manifest
 
 cd $BASE
+docker manifest rm dkllrjr/csgtostep:latest
 docker manifest create dkllrjr/csgtostep:latest --amend dkllrjr/csgtostep:latest-arm64 --amend dkllrjr/csgtostep:latest-amd64
 docker manifest push dkllrjr/csgtostep:latest
