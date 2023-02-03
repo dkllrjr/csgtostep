@@ -2,32 +2,20 @@
 
 # ──────────────────────────────────────────────────────────────────────────
 
-usage="$(basename "$0") [-h] [-i INPUT] [-o OUTPUT]
-Converts a CSG file (\".csg\" extension) to a STEP file (\".step\" extension) using FreeCAD, where:
-    -h  shows this help text
-    -i  input file name with extension; must be \".csg\"
-    -o  output file name with extension must be \".step\""
+usage="$(basename "$0") [-h] [INPUT] [OUTPUT]
+Converts a CSG file (\".csg\" extension) to a STEP file (\".step\" extension) using FreeCAD. The input file name with extension [INPUT] must have the extension \".csg\". The output file name with extension [OUTPUT] must have the extension \".step\". Further commands are listed below:
+    -h  shows this help text"
 
 # ──────────────────────────────────────────────────────────────────────────
 
-while getopts ":hi:o:" opt; do
+while getopts ":h" opt; do
     case ${opt} in
-        i)
-            INPUT=$OPTARG
-            ;;
-        o)
-            OUTPUT=$OPTARG
-            ;;
         h)
-            echo "$usage"
-            ;;
-        \?)
-            echo "Invalid option: $OPTARG" 1>&2
             echo "$usage"
             exit 1
             ;;
-        :)
-            echo "Invalid option: $OPTARG requires an argument" 1>&2
+        \?)
+            echo "Invalid option: $OPTARG" 1>&2
             echo "$usage"
             exit 1
             ;;
@@ -37,8 +25,15 @@ shift $((OPTIND -1))
 
 # ──────────────────────────────────────────────────────────────────────────
 
+INPUT=$1
+OUTPUT=$2
+
+# ──────────────────────────────────────────────────────────────────────────
+
 if [ ! "$INPUT" ]; then
     echo "Input file must be provided."
+    echo ""
+    echo "$usage"
     exit 1
 fi
 
