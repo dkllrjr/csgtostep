@@ -27,4 +27,10 @@ else:
 # converting csg file to step file
 
 importCSG.open(in_file)
-Part.export([FreeCAD.ActiveDocument.Objects[-1]], out_file)
+
+objects = FreeCAD.ActiveDocument.Objects
+for obj in objects:
+    if 'Base' in obj.PropertiesList:
+        output_obj = obj
+
+Part.export([output_obj], out_file)
